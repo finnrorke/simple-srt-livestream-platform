@@ -19,10 +19,18 @@ services:
         ports:
             - 16543:80
         volumes:
-            - ./servers.json:/pgadmin4/servers.json
+            - ./database/servers.json:/pgadmin4/servers.json
         networks:
             - postgres-db-network
-
+    srt_server:
+        build:
+            context: ./srt-server
+            dockerfile: Dockerfile
+        volumes:
+            - ./srt-server:/server
+        ports:
+            - 7500:7500/udp
+        command: sleep infinity
 
 volumes:
     postgres-db-volume:
@@ -30,7 +38,14 @@ volumes:
         driver_opts:
             type: none
             o: bind
-            device: ./data
+            device: ./database/data
+
+    srt-webserver:
+        driver: local
+        driver_opts:
+            type: none
+            o: bind
+            device: ./srt-server
 networks:
     postgres-db-network:
         driver: bridge

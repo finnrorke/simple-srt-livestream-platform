@@ -74,9 +74,8 @@ int main() {
 	new_sock = srt_accept(socket, (sockaddr*)&peer_addr, &peer_addrlen);
 	
 	
-
 	if (new_sock == SRT_INVALID_SOCK){
-		fprintf(stderr, "Count not create socket");
+		fprintf(stderr, "Count not create socket: %s\n", srt_getlasterror_str());
 		exit(EXIT_FAILURE);
 	}
 
