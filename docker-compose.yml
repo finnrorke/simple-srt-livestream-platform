@@ -1,4 +1,3 @@
-version: '3.8'
 services:
     postgres:
         image: postgres:latest
@@ -26,12 +25,12 @@ services:
         build:
             context: ./srt-server
             dockerfile: Dockerfile
-        volumes:
-            - ./srt-server:/server
         ports:
             - 7500:7500/udp
-        command: sleep infinity
-
+        tty: true
+        sysctls:
+            - net.ipv6.conf.all.disable_ipv6=1
+        
 volumes:
     postgres-db-volume:
         driver: local

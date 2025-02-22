@@ -12,6 +12,7 @@ int SrtListenCallback(void* opaq, SRTSOCKET ns, int hsversion,
 	
 	USERINFO* userinfo = static_cast<USERINFO*>(opaq);
 	
+	return 0;
 }
 
 int main() {
@@ -47,6 +48,8 @@ int main() {
 
 	srt_startup();
 	
+	srt_setloglevel(srt_logging::LogLevel::debug);
+
 	socket = srt_create_socket();
 	if (socket == SRT_INVALID_SOCK){
 		fprintf(stderr, "Count not create socket");
